@@ -1,76 +1,68 @@
 
 //display current date in header
 var rightNow = moment().format("dddd, DD MMMM YYYY");
-console.log(rightNow);
 
 let header = document.querySelector("#currentDay");
 header.innerText = rightNow;
 
 var numHours = 1
 
+// add time to timeblocks
+var rightNow = moment().format("hh:mm:ss a");
 
-//element.addEventListener("click", myFunction);
+var future = moment().add(1, "hour").format("hh:mm:ss");
 
-function myFunction() {
-  document.getElementById("demo").innerHTML = "Hello World";
+var pastHour = moment().subtract(1, "hour").format("hh:mm:ss");
+
+var future = "",
+  pastHour = "";
+
+// add color coding to timeblocks
+if (future.value > rightNow.value) {
+  document.getElementsByClassName("description").style.backgroundColor = '#FF0000';
 }
 
-var saveBtn = document.getElementsByClassName("description");
-saveBtn.onClick = saveData;
-function saveData()
- {  var taskInput = document.getElementsByClassName("description");
-  localStorage.setItem("server", taskInput.value);
+if (pastHour.value < rightNow.value) {
+  document.getElementsByClassName("description").style.backgroundColor = '#FF0000';
+}
+
+//saveBtn.onClick = saveData;
+
+function saveData() {
+  var taskInput = document.getElementsByClassName("description");
+  localStorage.setItem('description', JSON.stringify(taskInput.value));
   var savedValue = localStorage.getItem("server");
+}
+
+saveData();
+
+// this saves the task to local storage
+let entireData = []
+const createItem = (ev) => {
+  let testData = { //testData is the object
+    textarea: document.getElementsByClassName('description').value
+  }
+  entireData.push(testData);
 
 }
-document.getElementById('saveBtn').addEventListener('click', createItem());
-{
-  window.alert("button was clicked");
 
-}
+createItem();
 
 //     console.log(ev.target, ev.target.value);
 //     testFunction();
-   
+
 //  };
 
 // function for savings tasks to local storage
-var saveTasks = function() {
-    tasks = JSON.parse(localStorage.getItem(demo.value));
-}
+// var saveTasks = function() {
+//     tasks = JSON.parse(localStorage.getItem(demo.value));
+// }
 //lines 17-25, test button local storage
-// this saves the task to local storage
-function createItem() {
-    localStorage.mytask = Date.now("tasks", JSON.stringify(tasks));
-  }
-  
-  function myFunction() {
-    var x = localStorage.getItem("mytask");
-    document.getElementById("demo").innerHTML = x;
-  }
-  
+
+
 
 //var x = localStorage.getItem("mytask");
 
-// new object to track task status arrays
-// if nothing in localStorage, create a new object to track all task status arrays
-// if (!tasks) {
-//     tasks = {
-//       toDo: [],
-//       inProgress: [],
-//       inReview: [],
-//       done: []
-//     };
-//   }
-
-
-var saveTasks = function() {
-  localStorage.setItem("tasks", JSON.stringify(tasks));
-};
-
-var loadTasks = function() {
-
-}
 
 // update task in array and re-save to localstorage
 //   tasks[status][index].text = text;
@@ -81,8 +73,6 @@ var loadTasks = function() {
 //   tasks[status][index].date = date;
 //   saveTasks();
 
-
-
 // const addTask = (ev)=>{
 // let task = {
 // 	input: document.getElementByClass('description').value
@@ -91,47 +81,6 @@ var loadTasks = function() {
 
 // console.log(addTask);
 
-
-//color code entry boxes based on time
-const rows = document.getElementsByClassName("row");
-let currentTime = parseInt(moment().format('H'));
-
-Array.from(rows).forEach(row => {
-  let
-    rowIdString = row.id,
-    rowTime;
-  if (rowIdString) {
-    rowTime = parseInt(rowIdString);
-  }
-  if (rowTime) {
-
-    // Designates color according to past, future, present time
-    if (currentTime === rowTime) {
-      setColor(row, "orange");
-    } else if ((currentTime < rowTime) && (currentTime > rowTime - 6)) {
-      setColor(row, "grey");
-    } else if ((currentTime > rowTime) && (currentTime < rowTime + 6)) {
-      setColor(row, "blue");
-    } else {
-      setColor(row, "white");
-    }
-  }
-});
-
-function setColor(element, color) {
-  element.style.backgroundColor = color;
-}
-
-
-
-function classes(i) {
-
-    for(var i=0; i<numHours; i++) {
-        console.log("hi"+i);
-    }
-}
-
-classes();
 
 // var testFunction = function()
 // {console.log();
